@@ -1,13 +1,13 @@
 {
     "name": "amqp-route",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Data Routing Helpers for AMQP",
     "keywords": ["amqp", "routing", "templates"],
     "main": "index.js",
     "files": ["index.coffee", "index.js", "test.coffee", "test.js", "README.md", "LICENSE"],
     "scripts": {
-        "prepublish": "./node_modules/.bin/coffee -o js -c *.coffee",
-        "pretest": "./node_modules/.bin/coffee -o js -c *.coffee",
+        "prepublish": "./node_modules/.bin/coffee -c *.coffee",
+        "pretest": "./node_modules/.bin/coffee -c *.coffee",
         "test": "./node_modules/.bin/mocha"
     },
     "devDependencies": {
