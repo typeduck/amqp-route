@@ -85,3 +85,41 @@ var rk = route.fill({a: "A"}); // "A"
 rk = route.fill({a: "A"}, {a: "X", c: "C"}); // "A.C"
 rk = route.fill({a: "A", b: "B", d: "D, c: null}); // "A.B.D"
 ```
+
+## Publisher
+
+Publisher builds on Template, setting up an Exchange with options and *always*
+calling the callback, even when the Exchange is not in confirm mode. It also
+uses the publishing options from the Template.
+
+```javascript
+var amqpRoute = require("amqp-route");
+var amqpConn = require("amqp").createConnection(connectionOpts);
+// create a publisher in confirm mode, durable and no autoDelete
+amqpRoute.publisher(amqpConn, "My-Exchange?-acd/{routing}.{template}", function(err, pub){
+  var routingKeySources = [{routing: "sample"}, {template: "key"}];
+  var message = {important: "data"};
+  pub.publish(routingKeySources, message, function(err){
+    // message published with routing key "sample.key", confirm mode
+    // when NOT using confirm mode, this is called via process.nextTick()
+  });
+});
+```
+
+Additionally, you can include further Exchange options.
+
+```javascript
+var tpl = "My-Exchange?-acd/{routing}.{template}";
+amqpRoute.publisher(amqpConn, tpl, {type: "direct"}, function(err, pub){
+  // now we are using a Direct exchange instead of topic
+});
+```
+
+### publisher.publish(routeFillers, message[, pubOpts[, callback]])
+
+Publish a message, additional options are passed to
+[node-amqp](https://github.com/postwait/node-amqp) `exchange.publish()` and any
+passed callback will be called regardless of confirm mode.
+
+`routeFillers` is an array of sources to create routing key from Template. It
+corresponds to arguments passed in `Template.fill()`.
