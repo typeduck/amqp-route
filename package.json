@@ -1,0 +1,25 @@
+{
+    "name": "amqp-route",
+    "version": "1.0.0",
+    "description": "Data Routing Helpers for AMQP",
+    "keywords": ["amqp", "routing", "templates"],
+    "main": "index.js",
+    "files": ["index.coffee", "index.js", "test.coffee", "test.js", "README.md", "LICENSE"],
+    "scripts": {
+        "prepublish": "./node_modules/.bin/coffee -o js -c *.coffee",
+        "pretest": "./node_modules/.bin/coffee -o js -c *.coffee",
+        "test": "./node_modules/.bin/mocha"
+    },
+    "devDependencies": {
+        "coffee-script": "^1.8.0",
+        "mocha": "^2.0.0",
+        "should": "^4.3.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/typeduck/amqp-route.git"
+    },
+    "bugs": "https://github.com/typeduck/amqp-route/issues",
+    "author": "Ruquay K Calloway",
+    "license": "MIT"
+}
